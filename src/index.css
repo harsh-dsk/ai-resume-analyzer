@@ -1,0 +1,67 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --color-surface: #09090b;
+  --color-surface-elevated: #0f0f12;
+  --color-border-glass: rgba(255, 255, 255, 0.08);
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-[#050508] text-zinc-100 antialiased;
+    font-family: var(--font-sans);
+  }
+
+  ::selection {
+    @apply bg-cyan-500/30 text-white;
+  }
+}
+
+@layer utilities {
+  .text-gradient {
+    @apply bg-gradient-to-r from-cyan-300 via-emerald-300 to-cyan-400 bg-clip-text text-transparent;
+  }
+
+  .glass {
+    @apply border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl;
+  }
+
+  .glow-blue {
+    box-shadow:
+      0 0 60px -12px rgba(34, 211, 238, 0.35),
+      0 0 120px -24px rgba(34, 211, 238, 0.15);
+  }
+
+  .glow-emerald {
+    box-shadow:
+      0 0 60px -12px rgba(52, 211, 153, 0.35),
+      0 0 120px -24px rgba(52, 211, 153, 0.15);
+  }
+
+  .animate-border-glow {
+    background: linear-gradient(
+      90deg,
+      #22d3ee,
+      #34d399,
+      #22d3ee,
+      #34d399
+    );
+    background-size: 300% 100%;
+    animation: border-shimmer 4s ease infinite;
+  }
+
+  @keyframes border-shimmer {
+    0%,
+    100% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+  }
+}
