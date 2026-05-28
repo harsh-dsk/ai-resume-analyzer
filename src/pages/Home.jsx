@@ -4,7 +4,6 @@ import { CtaSection } from '../sections/CtaSection'
 import { FeaturesSection } from '../sections/FeaturesSection'
 import { HeroSection } from '../sections/HeroSection'
 import { HowItWorksSection } from '../sections/HowItWorksSection'
-import { UploadSection } from '../sections/UploadSection'
 
 export function Home() {
   const navigate = useNavigate()
@@ -20,7 +19,6 @@ export function Home() {
         onUploadClick={() => navigate('/upload')}
         onDemoClick={() => navigate('/dashboard')}
       />
-      <UploadSection onUploadClick={() => navigate('/upload')} />
       <FeaturesSection />
       <HowItWorksSection />
       <CtaSection onUploadClick={() => navigate('/upload')} onDemoClick={() => navigate('/dashboard')} />

@@ -66,10 +66,23 @@ export function Upload({
       }
 
       setProgress(100)
-      setAnalysisData({
-        ...data.analysis,
+      
+      // Transform backend response to match dashboard expectations
+      const analysis = data.analysis
+      const transformedData = {
+        ...analysis,
         fileName: data.fileName || selectedFile.name,
-      })
+        keywordsMissing: analysis.missingKeywords || [],
+        overview: `Your resume is well-suited for ${analysis.role || 'the target role'}. ${
+          analysis.atsScore >= 80 
+            ? 'Strong ATS compatibility.' 
+            : analysis.atsScore >= 60 
+            ? 'Adequate ATS formatting with room for improvement.' 
+            : 'Consider improving ATS formatting.'
+        } Focus on adding the missing keywords to enhance visibility.`,
+      }
+      
+      setAnalysisData(transformedData)
       setAnalysisReady(true)
       setTimeout(() => {
         setIsAnalyzing(false)

@@ -4,7 +4,7 @@ dotenv.config();
 import cors from 'cors'
 import express from 'express'
 import multer from 'multer'
-import { analyzeWithGemini, defaultAnalysis } from './services/geminiService.js'
+import { analyzeWithGemini } from './services/geminiService.js'
 import { extractResumeText } from './services/resumeParser.js'
 
 const app = express()
@@ -54,6 +54,13 @@ app.post('/analyze', upload.single('resume'), async (req, res) => {
     const message =
       error instanceof Error ? error.message : 'Resume analysis failed.'
 
+    // Handle specific error codes
+    if (error.code === 'INVALID_RESUME') {
+      return res.status(422).json({
+        error: message
+      })
+    }
+
     if (message.includes('GEMINI_API_KEY')) {
       return res.status(500).json({
         error:
@@ -73,7 +80,11 @@ app.post('/analyze', upload.single('resume'), async (req, res) => {
       return res.status(400).json({ error: message })
     }
 
-    return res.status(500).json({ error: message, fallback: defaultAnalysis })
+    if (message.includes('insufficient content')) {
+      return res.status(422).json({ error: message })
+    }
+
+    return res.status(500).json({ error: message })
   }
 })
 

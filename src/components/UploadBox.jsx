@@ -7,6 +7,7 @@ import { GlassCard } from './ui/GlassCard'
 const allowedExtensions = ['pdf', 'docx']
 
 function isValidFile(file) {
+  if (!file) return false
   const extension = file.name.split('.').pop()?.toLowerCase()
   return Boolean(extension && allowedExtensions.includes(extension))
 }
@@ -24,6 +25,23 @@ export function UploadBox({ selectedFile, onFileSelect, onAnalyze, isAnalyzing }
     }
     setError('')
     onFileSelect(file)
+  }
+
+  const handleButtonClick = () => {
+    if (fileInputRef.current) {
+      fileInputRef.current.click()
+    }
+  }
+
+  const handleInputChange = (e) => {
+    const file = e.target.files?.[0]
+    if (file) {
+      handleFile(file)
+    }
+    // Reset input value to allow selecting the same file again
+    if (fileInputRef.current) {
+      fileInputRef.current.value = ''
+    }
   }
 
   return (
@@ -47,7 +65,10 @@ export function UploadBox({ selectedFile, onFileSelect, onAnalyze, isAnalyzing }
           onDrop={(e) => {
             e.preventDefault()
             setDragOver(false)
-            handleFile(e.dataTransfer.files?.[0])
+            const droppedFile = e.dataTransfer.files?.[0]
+            if (droppedFile) {
+              handleFile(droppedFile)
+            }
           }}
         >
           <motion.div
@@ -59,19 +80,26 @@ export function UploadBox({ selectedFile, onFileSelect, onAnalyze, isAnalyzing }
           </motion.div>
           <h2 className="text-2xl font-semibold text-white sm:text-3xl">Upload your resume</h2>
           <p className="mt-2 text-zinc-400">Drag and drop PDF or DOCX to begin analysis.</p>
+          
+          {/* Hidden file input with proper accept types */}
           <input
             ref={fileInputRef}
             type="file"
             accept=".pdf,.docx,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
             className="hidden"
-            onChange={(e) => handleFile(e.target.files?.[0])}
+            onChange={handleInputChange}
+            aria-label="Upload resume file"
+            disabled={isAnalyzing}
           />
+          
+          {/* Button to trigger file picker */}
           <GlowButton
             variant="secondary"
             icon={FileText}
             className="mt-6 px-7 py-3"
-            onClick={() => fileInputRef.current?.click()}
+            onClick={handleButtonClick}
             disabled={isAnalyzing}
+            type="button"
           >
             Choose PDF or DOCX
           </GlowButton>
