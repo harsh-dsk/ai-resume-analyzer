@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { Menu, Sparkles, X, Github } from 'lucide-react'
+import { Menu, Sparkles, X, GitHub } from 'lucide-react'
 import { Link, NavLink } from 'react-router-dom'
 import { navLinks } from '../data/siteData'
 
@@ -50,7 +50,7 @@ export function Navbar() {
             className="flex h-9 w-9 items-center justify-center rounded-lg border border-white/10 transition-all duration-200 hover:border-cyan-300/50 hover:bg-cyan-300/10 text-zinc-400 hover:text-cyan-300"
             aria-label="GitHub repository"
           >
-            <Github className="h-5 w-5" />
+            <GitHub className="h-5 w-5" />
           </a>
         </div>
 
@@ -94,7 +94,7 @@ export function Navbar() {
               className="flex items-center gap-2 text-sm font-medium text-zinc-400 transition-colors hover:text-cyan-300"
               onClick={() => setOpen(false)}
             >
-              <Github className="h-4 w-4" />
+              <GitHub className="h-4 w-4" />
               GitHub
             </a>
           </div>
