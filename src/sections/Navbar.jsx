@@ -1,12 +1,13 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { ArrowRight, Menu, Sparkles, X } from 'lucide-react'
+import { Menu, Sparkles, X, Github } from 'lucide-react'
 import { Link, NavLink } from 'react-router-dom'
 import { navLinks } from '../data/siteData'
-import { GlowButton } from '../components/ui/GlowButton'
 
 export function Navbar() {
   const [open, setOpen] = useState(false)
+
+  const githubRepo = 'https://github.com/yourusername/ai-resume-analyzer'
 
   return (
     <motion.header
@@ -25,14 +26,14 @@ export function Navbar() {
           </span>
         </Link>
 
-        <ul className="hidden items-center gap-7 md:flex">
+        <ul className="hidden items-center gap-8 md:flex">
           {navLinks.map((link) => (
             <li key={link.to}>
               <NavLink
                 to={link.to}
                 end={link.to === '/'}
                 className={({ isActive }) =>
-                  `text-sm transition-colors hover:text-zinc-100 ${isActive ? 'text-zinc-100' : 'text-zinc-400'}`
+                  `text-sm font-medium transition-colors hover:text-cyan-300 ${isActive ? 'text-zinc-100' : 'text-zinc-400'}`
                 }
               >
                 {link.label}
@@ -41,18 +42,21 @@ export function Navbar() {
           ))}
         </ul>
 
-        <div className="hidden items-center gap-3 md:flex">
-          <GlowButton variant="ghost">Login</GlowButton>
-          <Link to="/upload">
-            <GlowButton variant="primary" icon={ArrowRight}>
-              Get Started
-            </GlowButton>
-          </Link>
+        <div className="hidden items-center gap-4 md:flex">
+          <a
+            href={githubRepo}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex h-9 w-9 items-center justify-center rounded-lg border border-white/10 transition-all duration-200 hover:border-cyan-300/50 hover:bg-cyan-300/10 text-zinc-400 hover:text-cyan-300"
+            aria-label="GitHub repository"
+          >
+            <Github className="h-5 w-5" />
+          </a>
         </div>
 
         <button
           type="button"
-          className="rounded-lg border border-white/10 bg-white/5 p-2 text-zinc-300 md:hidden"
+          className="rounded-lg border border-white/10 bg-white/5 p-2 text-zinc-300 transition-colors hover:bg-white/10 md:hidden"
           onClick={() => setOpen((prev) => !prev)}
           aria-label="Toggle mobile menu"
         >
@@ -72,7 +76,9 @@ export function Navbar() {
                 <NavLink
                   to={link.to}
                   end={link.to === '/'}
-                  className="block text-sm text-zinc-300"
+                  className={({ isActive }) =>
+                    `block text-sm font-medium transition-colors ${isActive ? 'text-cyan-300' : 'text-zinc-400 hover:text-zinc-100'}`
+                  }
                   onClick={() => setOpen(false)}
                 >
                   {link.label}
@@ -80,15 +86,17 @@ export function Navbar() {
               </li>
             ))}
           </ul>
-          <div className="mt-4 grid gap-2">
-            <GlowButton variant="ghost" className="w-full justify-center">
-              Login
-            </GlowButton>
-            <Link to="/upload" onClick={() => setOpen(false)}>
-              <GlowButton variant="primary" className="w-full justify-center">
-                Get Started
-              </GlowButton>
-            </Link>
+          <div className="mt-4 border-t border-white/5 pt-4">
+            <a
+              href={githubRepo}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 text-sm font-medium text-zinc-400 transition-colors hover:text-cyan-300"
+              onClick={() => setOpen(false)}
+            >
+              <Github className="h-4 w-4" />
+              GitHub
+            </a>
           </div>
         </motion.div>
       )}
