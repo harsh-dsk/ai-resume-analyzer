@@ -4,7 +4,6 @@ import {
   BarChart3,
   BrainCircuit,
   Briefcase,
-  CheckCircle2,
   FileText,
   GitBranch,
   Lightbulb,
@@ -18,9 +17,9 @@ import {
 } from 'lucide-react'
 
 export const navLinks = [
-  { href: '#features', label: 'Features' },
-  { href: '#dashboard', label: 'Dashboard' },
-  { href: '#how-it-works', label: 'How it Works' },
+  { to: '/', label: 'Home' },
+  { to: '/upload', label: 'Upload' },
+  { to: '/dashboard', label: 'Dashboard' },
 ]
 
 export const heroStats = [

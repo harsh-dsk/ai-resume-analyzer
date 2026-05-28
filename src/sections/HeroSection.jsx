@@ -4,7 +4,7 @@ import { heroButtons, heroStats } from '../data/siteData'
 import { GlowButton } from '../components/ui/GlowButton'
 import { fadeUp, stagger } from '../components/utils/motion'
 
-export function HeroSection() {
+export function HeroSection({ onUploadClick, onDemoClick }) {
   return (
     <section className="relative overflow-hidden px-4 pt-28 pb-14 sm:px-6 sm:pt-36 sm:pb-18 lg:px-8">
       <div className="relative mx-auto max-w-6xl">
@@ -50,6 +50,11 @@ export function HeroSection() {
                 icon={button.icon}
                 variant={button.variant}
                 className="w-full px-7 py-3 sm:w-auto"
+                onClick={
+                  button.label.toLowerCase().includes('demo')
+                    ? onDemoClick || onUploadClick
+                    : onUploadClick
+                }
               >
                 {button.label}
               </GlowButton>

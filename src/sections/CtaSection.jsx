@@ -2,7 +2,7 @@ import { motion } from 'framer-motion'
 import { ctaButtons } from '../data/siteData'
 import { GlowButton } from '../components/ui/GlowButton'
 
-export function CtaSection() {
+export function CtaSection({ onUploadClick, onDemoClick }) {
   return (
     <section id="pricing" className="px-4 py-14 sm:px-6 sm:py-16 lg:px-8">
       <motion.div
@@ -30,6 +30,7 @@ export function CtaSection() {
                 icon={button.icon}
                 variant={button.variant}
                 className="w-full px-7 py-3 sm:w-auto"
+                onClick={button.label === 'Try Demo' ? onDemoClick : onUploadClick}
               >
                 {button.label}
               </GlowButton>

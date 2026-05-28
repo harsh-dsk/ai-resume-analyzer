@@ -5,7 +5,7 @@ import { uploadMockProgress } from '../data/siteData'
 import { GlassCard } from '../components/ui/GlassCard'
 import { GlowButton } from '../components/ui/GlowButton'
 
-export function UploadSection() {
+export function UploadSection({ onUploadClick }) {
   const [dragOver, setDragOver] = useState(false)
   const [selectedFile] = useState('frontend-engineer-resume.pdf')
 
@@ -51,6 +51,14 @@ export function UploadSection() {
               </p>
               <GlowButton icon={FileText} variant="primary" className="mt-6 px-7 py-3">
                 Choose PDF or DOCX
+              </GlowButton>
+              <GlowButton
+                icon={Upload}
+                variant="secondary"
+                className="mt-3 px-7 py-3"
+                onClick={onUploadClick}
+              >
+                Open Upload Workspace
               </GlowButton>
               <p className="mt-4 text-xs text-zinc-500">
                 Max file size 5MB · Parsing takes less than 20 seconds

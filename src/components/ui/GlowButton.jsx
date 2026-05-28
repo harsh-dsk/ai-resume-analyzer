@@ -13,14 +13,16 @@ export function GlowButton({
   icon: Icon,
   variant = 'primary',
   className = '',
+  disabled = false,
   ...props
 }) {
   return (
     <motion.button
-      whileHover={{ scale: 1.03 }}
-      whileTap={{ scale: 0.98 }}
+      whileHover={disabled ? undefined : { scale: 1.03 }}
+      whileTap={disabled ? undefined : { scale: 0.98 }}
       transition={{ duration: 0.2 }}
-      className={`group inline-flex items-center justify-center gap-2 rounded-xl px-5 py-2.5 text-sm font-semibold transition-all duration-300 ${buttonVariants[variant]} ${className}`}
+      className={`group inline-flex items-center justify-center gap-2 rounded-xl px-5 py-2.5 text-sm font-semibold transition-all duration-300 ${buttonVariants[variant]} ${disabled ? 'cursor-not-allowed opacity-55' : ''} ${className}`}
+      disabled={disabled}
       {...props}
     >
       {Icon && (
