@@ -7,7 +7,7 @@ import { navLinks } from '../data/siteData'
 export function Navbar() {
   const [open, setOpen] = useState(false)
 
-  const githubRepo = 'https://github.com/yourusername/ai-resume-analyzer'
+  const githubRepo = 'https://github.com/harsh-dsk/ai-resume-analyzer'
 
   return (
     <motion.header
